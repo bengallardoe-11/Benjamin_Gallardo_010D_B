@@ -104,6 +104,7 @@ def leer_opcion():
         opcion=int(input(""))
         if 0>=opcion>=7:
             print("debe ingresar un numero entre 1 y 6")
+            return opcion
     except ValueError:
         print("Debe ingresar valores enteros")
 def main():
