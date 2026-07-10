@@ -8,10 +8,6 @@ def cupos_genero(peliculas,cartelera):
             if peliculas[codigo][1].lower()==genero.lower():
                 if codigo in cartelera:
                     total_cupos+=cartelera[codigo][1]
-                else:
-                    print(f"El genero {genero} no se encuentra en cartelera")
-            else:
-                print(f"El genero {genero} no se encuentra registrado")
         print(f"El total de cupos del genero {genero} es de {total_cupos}")
 #op 2
 def validar_precio_minimo(p_min):return p_min>0
@@ -35,20 +31,20 @@ def buscar_codigo(codigo,cartelera):
         return True
     return False
 def validar_nuevo_precio(nuevo_precio):return nuevo_precio>0
-def actualizar_precio(codigo,nuevo_precio,cartelera):
+def actualizar_precio(cartelera):
+    codigo=input("Ingrese un codigo:    ").strip()
     posicion=buscar_codigo(codigo,cartelera)
     try:
         nuevo_precio=int(input("Ingrese el nuevo precio:    "))
     except ValueError:
         print("Debe ingresar valores enteros")
-    if validar_nuevo_precio(nuevo_precio):
-        if posicion:
-            cartelera[codigo.upper()][0]=nuevo_precio
-            return True
-        else:
-            return False
+    if not validar_nuevo_precio(nuevo_precio):print("debe ingresar un numero mayor a 0")
+    elif posicion:
+        cartelera[codigo.upper()][0]=nuevo_precio
+        return True
     else:
-        print("Debe ingresar un numero mayor a 0")
+        return False
+
 #op 4
 def validar_codigo(codigo):return len(codigo)>0
 def validar_titulo(titulo):return len(titulo)>0
@@ -81,14 +77,13 @@ def agregar_pelicula(codigo, titulo, genero, duracion,clasificacion, idioma, es_
 
 #op 5
 def eliminar_pelicula(peliculas,cartelera):
-    codigo=(input("Ingrese el codigo que desea eliminar")).strip()
+    codigo=(input("Ingrese el codigo que desea eliminar:    ")).strip()
     if not validar_codigo(codigo): print("No debe dejar vacio el ingreso")
     elif buscar_codigo(codigo,cartelera):
         del peliculas[codigo.upper()]
         del cartelera[codigo.upper()]
         return True
     return False
-
 
 def menu():
     print("========== MENÚ PRINCIPAL ==========")
@@ -101,10 +96,10 @@ def menu():
     print("===========================================================")
 def leer_opcion():
     try:
-        opcion=int(input(""))
+        opcion=int(input("Ingrese una opcion:   "))
         if 0>=opcion>=7:
             print("debe ingresar un numero entre 1 y 6")
-            return opcion
+        return opcion
     except ValueError:
         print("Debe ingresar valores enteros")
 def main():
@@ -136,7 +131,8 @@ def main():
                 print("Debe ingresar valores enteros")
             busqueda_precio(peliculas,cartelera,p_min,p_max)
         elif op==3:
-            if actualizar_precio():
+            
+            if actualizar_precio(cartelera):
                 print("Precio actualizado")
             else:
                 print("El codigo no existe")
@@ -144,19 +140,17 @@ def main():
             codigo=input("Ingrese un codigo:    ").strip()
             titulo=input("Ingrese un titulo:    ").strip()
             genero=input("Ingrese un genero:    ").strip()
-            duracion=int("input(Ingrese la duracion")
+            duracion=int(input("Ingrese la duracion:    "))
             clasificacion=input("Ingrese una clasificacion:    ").strip()
             idioma=input("Ingrese un idioma:    ").strip()
             es_3d=input("Es 3D? s/n:    ").strip()
-            precio=int(input("ingrese un precio"))
-            cupos =int(input("ingrese cantidad de cupos"))
-            agregar_pelicula(codigo, titulo, genero, duracion,clasificacion, idioma, es_3d, precio, cupos,cartelera,peliculas)
+            precio=int(input("ingrese un precio:    "))
+            cupos =int(input("ingrese cantidad de cupos:    "))
             if agregar_pelicula(codigo, titulo, genero, duracion,clasificacion, idioma, es_3d, precio, cupos,cartelera,peliculas):
                 print("Película agregada")
             else:
                 print("El código ya existe")
         elif op==5:
-            eliminar_pelicula(peliculas,cartelera)
             if eliminar_pelicula(peliculas,cartelera):
                 print("Película eliminada")
             else:
