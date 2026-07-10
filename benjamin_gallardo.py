@@ -163,6 +163,7 @@ def main():
         elif op==6:
             print("Programa finalizado.")
             break
+main()
 
 
             
