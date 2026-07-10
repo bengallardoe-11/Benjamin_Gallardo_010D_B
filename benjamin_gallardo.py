@@ -1,5 +1,3 @@
-
-def validar_cantidad(cantidad):return cantidad>0
 #op 1
 def validar_genero(genero):return len(genero)>0
 def cupos_genero(peliculas,cartelera):
@@ -52,7 +50,34 @@ def actualizar_precio(codigo,nuevo_precio,cartelera):
     else:
         print("Debe ingresar un numero mayor a 0")
 #op 4
+def validar_codigo(codigo):return len(codigo)>0
+def validar_titulo(titulo):return len(titulo)>0
+def validar_genero(genero):return len(genero)>0
+def validar_duracion(duracion):return duracion>0
+def validar_idioma(idioma):return len(idioma)>0
+def validar_3d(es_3d):
+    if es_3d.lower()=="s":
+        return True
+    else:
+        return False
+def validar_precio(precio):return precio>0
+def validar_cupos(cupos):return cupos>0
 
+def agregar_pelicula(codigo, titulo, genero, duracion,clasificacion, idioma, es_3d, precio, cupos,cartelera,peliculas):
+    if not validar_codigo(codigo): print("No debe dejar vacio el ingreso")
+    elif not validar_titulo(titulo):print("No debe dejar vacio el ingreso")
+    elif not validar_genero(genero):print("No debe dejar vacio el ingreso")
+    elif not validar_duracion(duracion):print("El numero debe ser mayor a 0")
+    elif not validar_idioma(idioma):print("No debe dejar vacio el ingreso")
+    elif not validar_3d(es_3d):print("No debe dejar vacio el ingreso")
+    elif not validar_precio(precio):print("El numero debe ser mayor a 0")
+    elif not validar_cupos(cupos):print("El numero debe ser mayor a 0")
+    elif buscar_codigo(codigo,cartelera):
+        return False
+    else:
+        peliculas[codigo.upper()]=[titulo,genero,duracion,clasificacion,idioma,es_3d]
+        cartelera[codigo.upper()]=[precio,cupos]
+        return True
 
 
 
@@ -90,7 +115,7 @@ def main():
         'P103': ['Planeta Agua', 'documental', 90, 'A', 'Español', False],
         'P104': ['Risa Total', 'comedia', 105, 'A', 'Español', True],
         'P105': ['Código Zero', 'thriller', 118, 'C', 'Ingles', True],
-        'P106': ['Viaje Lunar', 'ciencia ficción', 132, 'B', 'Ingles', False]
+        'P106': ['Viaje Lunar', 'ciencia ficción', 132, 'B', 'Ingles', False],
     }
     cartelera = {
         'P101': [5990, 40],
@@ -98,7 +123,7 @@ def main():
         'P103': [4990, 25],
         'P104': [6990, 12],
         'P105': [8990, 8],
-        'P106': [7490, 3]
+        'P106': [7490, 3],
     }
     while True:
         menu()
@@ -113,10 +138,27 @@ def main():
             busqueda_precio(peliculas,cartelera,p_min,p_max)
         elif op==3:
             if actualizar_precio():
-                print("precio actualizado")
+                print("Precio actualizado")
             else:
-                print("el codigo no existe")
+                print("El codigo no existe")
         elif op==4:
+            codigo=input("Ingrese un codigo:    ").strip()
+            titulo=input("Ingrese un titulo:    ").strip()
+            genero=input("Ingrese un genero:    ").strip()
+            duracion=int("input(Ingrese la duracion")
+            clasificacion=input("Ingrese una clasificacion:    ").strip()
+            idioma=input("Ingrese un idioma:    ").strip()
+            es_3d=input("Es 3D? s/n:    ").strip()
+            precio=int(input("ingrese un precio"))
+            cupos =int(input("ingrese cantidad de cupos"))
+            agregar_pelicula(codigo, titulo, genero, duracion,clasificacion, idioma, es_3d, precio, cupos,cartelera,peliculas)
+            if agregar_pelicula(codigo, titulo, genero, duracion,clasificacion, idioma, es_3d, precio, cupos,cartelera,peliculas):
+                print("Película agregada")
+            else:
+                print("El código ya existe")
+
+
+
             
 
 
