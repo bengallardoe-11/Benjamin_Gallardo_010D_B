@@ -90,16 +90,6 @@ def eliminar_pelicula(peliculas,cartelera):
     return False
 
 
-
-
-    
-
-
-
-
-
-
-
 def menu():
     print("========== MENÚ PRINCIPAL ==========")
     print("1. Cupos por género")
