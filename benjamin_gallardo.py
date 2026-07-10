@@ -79,7 +79,15 @@ def agregar_pelicula(codigo, titulo, genero, duracion,clasificacion, idioma, es_
         cartelera[codigo.upper()]=[precio,cupos]
         return True
 
-
+#op 5
+def eliminar_pelicula(peliculas,cartelera):
+    codigo=(input("Ingrese el codigo que desea eliminar")).strip()
+    if not validar_codigo(codigo): print("No debe dejar vacio el ingreso")
+    elif buscar_codigo(codigo,cartelera):
+        del peliculas[codigo.upper()]
+        del cartelera[codigo.upper()]
+        return True
+    return False
 
 
 
@@ -156,6 +164,18 @@ def main():
                 print("Película agregada")
             else:
                 print("El código ya existe")
+        elif op==5:
+            eliminar_pelicula(peliculas,cartelera)
+            if eliminar_pelicula(peliculas,cartelera):
+                print("Película eliminada")
+            else:
+                print("El código no existe")
+        elif op==6:
+            print("Programa finalizado.")
+            break
+
+
+            
 
 
 
